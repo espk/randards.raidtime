@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>raid time</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Nunito&family=Open+Sans+Condensed:ital,wght@0,300;1,300&family=Roboto:wght@400;700&family=Shadows+Into+Light&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="//randards.com/randards.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="moment.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <div class="group">
+            <div class="header-container">
+                <div class="logo">
+                    <a href="http://randards.com">
+                        <h1 class="warlock">randards.com</h1>
+                        <h2>do you meet randy's standards?</h2>
+                    </a>
+                </div>
+                <div class="title">
+                    Dungeon Keys
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="group">
+            <p id="raidstart" class="hide">
+                Our next performance begins in...
+            </p>
+            <p id="live" class="hide">
+                We are on LIVE NOW for:
+            </p>
+            <div class="clock">
+                <div class="labels">
+                    <span class="days">days</span>
+                    <span class="hours">hours</span>
+                    <span class="minutes">minutes</span>
+                    <span class="seconds">seconds</span>
+                </div>
+                <div class="timer">
+                    <span id="days" class="days"></span>
+                    <span id="hours" class="hours"></span>
+                    <span id="minutes" class="minutes"></span>
+                    <span id="seconds" class="seconds"></span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <script>
+        function countdown() {
+            let days, hours, minutes, seconds;
+            var raidStatus = nextTimer();
+            var endDate = new Date(raidStatus.time).getTime();
+
+            if (isNaN(endDate)) {
+                return;
+            }
+
+            setInterval(calculate, 100);
+
+            function calculate() {
+                var startDate, timeRemaining = new Date().getTime();
+
+                if (raidStatus.active) {
+                    document.getElementById("live").className = "show";
+                    document.getElementById("raidstart").className = "hide";
+                } else {
+                    document.getElementById("live").className = "hide";
+                    document.getElementById("raidstart").className = "show";
+                }
+
+                startDate = new Date().getTime();
+                timeRemaining = parseInt((endDate - startDate) / 1000);
+
+                if (timeRemaining >= 0) {
+                    days = parseInt(timeRemaining / 86400);
+                    timeRemaining = (timeRemaining % 86400);
+
+                    hours = parseInt(timeRemaining / 3600);
+                    timeRemaining = (timeRemaining % 3600);
+
+                    minutes = parseInt(timeRemaining / 60);
+                    timeRemaining = (timeRemaining % 60);
+
+                    seconds = parseInt(timeRemaining);
+
+                    document.getElementById("days").innerHTML = parseInt(days, 10);
+                    document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+                } else {
+                    raidStatus = nextTimer();
+                    endDate = new Date(raidStatus.time).getTime();
+                }
+
+            }
+
+            function nextTimer() {
+                let todayUtc = new moment.utc(moment());
+
+                var sunday = new moment.utc(moment()).startOf('week').add(1, 'day').minute(30);
+                var sundayEnd = new moment.utc(sunday).add(2, 'hour');
+                var thursday = new moment.utc(moment()).startOf('week').add(5, 'day').hour(1);
+                var thursdayEnd = new moment.utc(thursday).add(2, 'hour');
+
+                console.log(thursday.format())
+
+                if (todayUtc > sundayEnd) {
+                    sunday.add(1, 'week');
+                    sundayEnd.add(1, 'week');
+                }
+
+                if (todayUtc > thursdayEnd) {
+                    thursday.add(1, 'week');
+                    thursdayEnd.add(1, 'week');
+                }
+
+                let active = ((todayUtc >= sunday && todayUtc <= sundayEnd) || (todayUtc >= thursday && todayUtc <= thursdayEnd));
+                var time;
+
+                if (active) {
+                    time = moment.utc(Math.min(sundayEnd, thursdayEnd))
+                } else {
+                    time = moment.utc(Math.min(sunday, thursday))
+                }
+
+                return { time: time, active: active };
+            }
+        }
+
+        (function () {
+            countdown();
+        }());
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+
+.clock {
+  margin-top: 30px;
+}
+
+.timezone {
+  display: inline-block;
+  width: 60px;
+  padding-right: 30px;
+  text-align: right;
+}
+
+.days, .hours, .minutes, .seconds {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 0 10px;
+  width: 110px;
+}
+
+
+.timer .days, .timer .hours, .timer .minutes, .timer .seconds {
+  font-family: 'Roboto', sans-serif;
+  font-size: 64px;
+  color: #9482c9;
+  text-align: center;
+  background-color: #000;
+  border: 1px solid #555;
+}
+
+#live {
+  font-size: 32px;
+  color: #090;
+}
+
+#raidstart {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.hide {
+  display: none;
+}
