@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico">
+
+    <title>event timer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Nunito&family=Open+Sans+Condensed:ital,wght@0,300;1,300&family=Roboto:wght@400;700&family=Shadows+Into+Light&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="//randards.com/randards.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="moment.js"></script>
+    <style>
+        ul {
+            list-style: none;
+        }
+        li {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        li span {
+            color: #999;
+            display: inline-block;
+            padding-right: 10px;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+        .bronjahm {
+            color: #d70;
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <div class="group">
+            <div class="header-container">
+
+                <div class="title" style="text-align: left;">
+                    Event Timer
+                </div>
+                <div class="logo">
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="group">
+            <div class="new-clock">
+                <h2 class="bronjahm">Bronjahm up in:</h2>
+                <div class="clock">
+                    <div class="labels">
+                        <span class="days">days</span>
+                        <span class="hours">hours</span>
+                        <span class="minutes">minutes</span>
+                        <span class="seconds">seconds</span>
+                    </div>
+                    <div class="timer">
+                        <span id="bronjahm-days" class="days"></span>
+                        <span id="bronjahm-hours" class="hours"></span>
+                        <span id="bronjahm-minutes" class="minutes"></span>
+                        <span id="bronjahm-seconds" class="seconds"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="group">
+            <h3>Upcoming Schedule</h3>
+            <ul id="rares-list">
+
+            </ul>
+        </div>
+    </section>
+
+
+    <script>
+        function countdown2() {
+            let days, hours, minutes, seconds;
+            var mobStatus = nextTimer();
+            var endDate = new Date(mobStatus.time).getTime();
+
+            if (isNaN(endDate)) {
+                return;
+            }
+
+            displayRares(mobStatus.rares);
+            setInterval(calculate, 100);
+
+            function calculate() {
+                var timeRemaining = new Date().getTime();
+                var now = new Date().getTime();
+
+                timeRemaining = parseInt((endDate - now) / 1000);
+                listRemaining = parseInt((moment.utc(mobStatus.rares[0].time).local() - now) / 1000);
+
+                if ((timeRemaining >= 0) && (listRemaining >= 0)) {
+                    days = parseInt(timeRemaining / 86400);
+                    timeRemaining = (timeRemaining % 86400);
+
+                    hours = parseInt(timeRemaining / 3600);
+                    timeRemaining = (timeRemaining % 3600);
+
+                    minutes = parseInt(timeRemaining / 60);
+                    timeRemaining = (timeRemaining % 60);
+
+                    seconds = parseInt(timeRemaining);
+
+                    document.getElementById("bronjahm-days").innerHTML = parseInt(days, 10);
+                    document.getElementById("bronjahm-hours").innerHTML = hours < 10 ? "0" + hours : hours;
+                    document.getElementById("bronjahm-minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+                    document.getElementById("bronjahm-seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+                    
+                    
+                } else {
+                    mobStatus = nextTimer();
+                    endDate = new Date(mobStatus.time).getTime();
+                    displayRares(mobStatus.rares);
+                }
+
+            }
+
+            function displayRares(rares) {
+                var list = document.querySelector('#rares-list')
+                list.innerHTML = "";
+
+                rares.forEach(r => {
+                    var listItem = document.createElement("li");
+                    var dateSpan = document.createElement("span");
+                    var listItemTime = document.createTextNode(`${moment(r.time).local().format('hh:mm a')}`)
+                    var listItemText = document.createTextNode(`${r.rare}`)
+                    
+                    dateSpan.appendChild(listItemTime);
+
+                    listItem.appendChild(dateSpan);
+                    listItem.appendChild(listItemText);
+
+                    listItem.classList.add(`${r.rare.toLowerCase().replaceAll(' ', '').replaceAll("'", "")}`)
+                    list.appendChild(listItem);
+                });
+            }
+
+            function nextTimer() {
+                var now = moment.utc();
+                var reference = moment.utc().add(-400, 'm');
+                var zulu = new moment.utc('2020-11-11 16:40:00');
+
+                while (zulu < now) {
+                    zulu.add(400, 'm');
+                }
+
+
+                var rares = [
+                    { rare: "Blood Queen Lana'thel", time: new moment.utc('2020-11-11 14:20:00') },
+                    { rare: "Professor Putricide", time: new moment.utc('2020-11-11 14:40:00') },
+                    { rare: "Lady Deathwhisper", time: new moment.utc('2020-11-11 15:00:00') },
+                    { rare: "Skadi the Ruthless", time: new moment.utc('2020-11-11 15:20:00') },
+                    { rare: "Ingvar the Plunderer", time: new moment.utc('2020-11-11 15:40:00') },
+                    { rare: "Prince Keleseth", time: new moment.utc('2020-11-11 16:00:00') },
+                    { rare: "The Black Knight", time: new moment.utc('2020-11-11 16:20:00') },
+                    { rare: "Bronjahm", time: new moment.utc('2020-11-11 16:40:00') },
+                    { rare: "Scourgelord Tyrannus", time: new moment.utc('2020-11-11 17:00:00') },
+                    { rare: "Forgemaster Garfrost", time: new moment.utc('2020-11-11 17:20:00') },
+                    { rare: "Marwyn", time: new moment.utc('2020-11-11 17:40:00') },
+                    { rare: "Falric", time: new moment.utc('2020-11-11 18:00:00') },
+                    { rare: "The Prophet Tharon'ja", time: new moment.utc('2020-11-11 18:20:00') },
+                    { rare: "Novos the Summoner", time: new moment.utc('2020-11-11 18:40:00') },
+                    { rare: "Trollgore", time: new moment.utc('2020-11-11 19:00:00') },
+                    { rare: "Krik'thir the Gatewatcher", time: new moment.utc('2020-11-11 19:20:00') },
+                    { rare: "Prince Taldaram", time: new moment.utc('2020-11-11 19:40:00') },
+                    { rare: "Elder Nadox", time: new moment.utc('2020-11-11 20:00:00') },
+                    { rare: "Noth the Plaguebringer", time: new moment.utc('2020-11-11 20:20:00') },
+                    { rare: "Patchwerk", time: new moment.utc('2020-11-11 20:40:00') }
+                ];
+
+                var min = rares[0].time;
+
+
+                while (moment.utc().add(-400, 'm') > min) {
+                    rares.forEach(r => r.time.add(400, 'm'))
+                    min = rares[0].time;
+                }
+
+                rares.forEach(r => {
+                    if (r.time < now) r.time.add(400, 'm')
+                })
+
+                rares.sort((a, b) => {
+                    return a.time - b.time
+                })
+
+                return { time: zulu, rares: rares };
+            }
+
+
+        }
+
+
+        (function () {
+            countdown2();
+        }());
+
+    </script>
+</body>
+
+</html>
