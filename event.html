@@ -151,13 +151,6 @@
 
             function nextTimer() {
                 var now = moment.utc();
-                var reference = moment.utc().add(-200, 'm');
-                var zulu = moment.utc('2020-11-16 19:10:00');
-
-                while (zulu < now) {
-                    zulu.add(200, 'm');
-                }
-
 
                 var anchorTime = moment.utc('2020-11-16 17:20:00');
                 var rares = [
@@ -199,7 +192,8 @@
                     return a.time - b.time
                 })
 
-                return { time: zulu, rares: rares };
+                var bronjahm = rares.filter(r => r.rare === 'Bronjahm')[0].time;
+                return { time: bronjahm, rares: rares };
             }
 
 
