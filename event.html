@@ -151,47 +151,49 @@
 
             function nextTimer() {
                 var now = moment.utc();
-                var reference = moment.utc().add(-400, 'm');
-                var zulu = new moment.utc('2020-11-11 16:40:00');
+                var reference = moment.utc().add(-200, 'm');
+                var zulu = moment.utc('2020-11-16 19:10:00');
 
                 while (zulu < now) {
-                    zulu.add(400, 'm');
+                    zulu.add(200, 'm');
                 }
 
 
+                var anchorTime = moment.utc('2020-11-16 17:20:00');
+                console.log(anchorTime.local());
                 var rares = [
-                    { rare: "Blood Queen Lana'thel", time: new moment.utc('2020-11-11 14:20:00') },
-                    { rare: "Professor Putricide", time: new moment.utc('2020-11-11 14:40:00') },
-                    { rare: "Lady Deathwhisper", time: new moment.utc('2020-11-11 15:00:00') },
-                    { rare: "Skadi the Ruthless", time: new moment.utc('2020-11-11 15:20:00') },
-                    { rare: "Ingvar the Plunderer", time: new moment.utc('2020-11-11 15:40:00') },
-                    { rare: "Prince Keleseth", time: new moment.utc('2020-11-11 16:00:00') },
-                    { rare: "The Black Knight", time: new moment.utc('2020-11-11 16:20:00') },
-                    { rare: "Bronjahm", time: new moment.utc('2020-11-11 16:40:00') },
-                    { rare: "Scourgelord Tyrannus", time: new moment.utc('2020-11-11 17:00:00') },
-                    { rare: "Forgemaster Garfrost", time: new moment.utc('2020-11-11 17:20:00') },
-                    { rare: "Marwyn", time: new moment.utc('2020-11-11 17:40:00') },
-                    { rare: "Falric", time: new moment.utc('2020-11-11 18:00:00') },
-                    { rare: "The Prophet Tharon'ja", time: new moment.utc('2020-11-11 18:20:00') },
-                    { rare: "Novos the Summoner", time: new moment.utc('2020-11-11 18:40:00') },
-                    { rare: "Trollgore", time: new moment.utc('2020-11-11 19:00:00') },
-                    { rare: "Krik'thir the Gatewatcher", time: new moment.utc('2020-11-11 19:20:00') },
-                    { rare: "Prince Taldaram", time: new moment.utc('2020-11-11 19:40:00') },
-                    { rare: "Elder Nadox", time: new moment.utc('2020-11-11 20:00:00') },
-                    { rare: "Noth the Plaguebringer", time: new moment.utc('2020-11-11 20:20:00') },
-                    { rare: "Patchwerk", time: new moment.utc('2020-11-11 20:40:00') }
+                    { rare: "Blood Queen Lana'thel", time: moment.utc(anchorTime) },
+                    { rare: "Professor Putricide", time: moment.utc(anchorTime).add(10, 'm') },
+                    { rare: "Lady Deathwhisper", time: moment.utc(anchorTime).add(20, 'm') },
+                    { rare: "Skadi the Ruthless", time: moment.utc(anchorTime).add(30, 'm') },
+                    { rare: "Ingvar the Plunderer", time: moment.utc(anchorTime).add(40, 'm') },
+                    { rare: "Prince Keleseth", time: moment.utc(anchorTime).add(50, 'm') },
+                    { rare: "The Black Knight", time: moment.utc(anchorTime).add(60, 'm') },
+                    { rare: "Bronjahm", time: moment.utc(anchorTime).add(70, 'm') },
+                    { rare: "Scourgelord Tyrannus", time: moment.utc(anchorTime).add(80, 'm') },
+                    { rare: "Forgemaster Garfrost", time: moment.utc(anchorTime).add(90, 'm') },
+                    { rare: "Marwyn", time: moment.utc(anchorTime).add(100, 'm') },
+                    { rare: "Falric", time: moment.utc(anchorTime).add(110, 'm') },
+                    { rare: "The Prophet Tharon'ja", time: moment.utc(anchorTime).add(120, 'm') },
+                    { rare: "Novos the Summoner", time: moment.utc(anchorTime).add(130, 'm') },
+                    { rare: "Trollgore", time: moment.utc(anchorTime).add(140, 'm') },
+                    { rare: "Krik'thir the Gatewatcher", time: moment.utc(anchorTime).add(150, 'm') },
+                    { rare: "Prince Taldaram", time: moment.utc(anchorTime).add(160, 'm') },
+                    { rare: "Elder Nadox", time: moment.utc(anchorTime).add(170, 'm') },
+                    { rare: "Noth the Plaguebringer", time: moment.utc(anchorTime).add(180, 'm') },
+                    { rare: "Patchwerk", time: moment.utc(anchorTime).add(190, 'm') }
                 ];
 
                 var min = rares[0].time;
 
 
-                while (moment.utc().add(-400, 'm') > min) {
-                    rares.forEach(r => r.time.add(400, 'm'))
+                while (moment.utc().add(-200, 'm') > min) {
+                    rares.forEach(r => r.time.add(200, 'm'))
                     min = rares[0].time;
                 }
 
                 rares.forEach(r => {
-                    if (r.time < now) r.time.add(400, 'm')
+                    if (r.time < now) r.time.add(200, 'm')
                 })
 
                 rares.sort((a, b) => {
