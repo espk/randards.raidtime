@@ -12,17 +12,22 @@
 
 .days, .hours, .minutes, .seconds {
   display: inline-block;
-  margin-right: 10px;
-  padding: 0 10px;
   width: 110px;
 }
 
+.label {
+  font-size: 16px;
+  color: #eee;
+}
 
-.timer .days, .timer .hours, .timer .minutes, .timer .seconds {
+
+.timer .date {
   font-family: 'Roboto', sans-serif;
   font-size: 64px;
   color: #9482c9;
   text-align: center;
+  margin-right: 10px;
+  padding: 0 10px;
   background-color: #000;
   border: 1px solid #555;
 }
@@ -39,4 +44,27 @@
 
 .hide {
   display: none;
+}
+
+@media (max-width: 600px) {
+  
+  .label {
+    font-size: 11px;
+  }
+
+  .days, .hours, .minutes, .seconds {
+    width: 74px;
+  }
+
+  .timer .date {
+
+    font-size: 48px;
+    margin-right: 5px;
+    padding: 0 5px;
+  }
+  
+  #raidstart, #live {
+    font-size: 16px;
+  }
+
 }

@@ -43,17 +43,23 @@
                 We are on LIVE NOW for:
             </p>
             <div class="clock">
-                <div class="labels">
-                    <span class="days">days</span>
-                    <span class="hours">hours</span>
-                    <span class="minutes">minutes</span>
-                    <span class="seconds">seconds</span>
-                </div>
                 <div class="timer">
-                    <span id="days" class="days"></span>
-                    <span id="hours" class="hours"></span>
-                    <span id="minutes" class="minutes"></span>
-                    <span id="seconds" class="seconds"></span>
+                    <div class="days">
+                        <div class="label">days</div>
+                        <div id="days" class="date"></div>
+                    </div>
+                    <div class="hours">
+                        <div class="label">hours</div>
+                        <div id="hours" class="date"></div>
+                    </div>
+                    <div class="minutes">
+                        <div class="label">minutes</div>
+                        <div id="minutes" class="date"></div>
+                    </div>
+                    <div class="seconds">
+                        <div class="label">seconds</div>
+                        <div id="seconds" class="date"></div>
+                    </div>
                 </div>
             </div>
 
@@ -125,7 +131,7 @@
                 var sundayEnd = new moment.utc(sunday).add(2, 'hour');
                 var thursday = new moment.utc(moment()).startOf('week').add(5, 'day').hour(1).minute(30);
                 var thursdayEnd = new moment.utc(thursday).add(2, 'hour');
-                
+
 
                 if (todayUtc > sundayEnd) {
                     sunday.add(1, 'week');
