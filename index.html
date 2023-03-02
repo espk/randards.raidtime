@@ -116,14 +116,14 @@
                 /* Daylight Savings Time 
                 var sunday = new moment.utc(moment()).startOf('week').add(1, 'day').minute(30);
                 var sundayEnd = new moment.utc(sunday).add(2, 'hour');
-                var thursday = new moment.utc(moment()).startOf('week').add(5, 'day').hour(1);
+                var thursday = new moment.utc(moment()).startOf('week').add(5, 'day').minute(30);
                 var thursdayEnd = new moment.utc(thursday).add(2, 'hour');
                 */
 
                 /* Standard Time */
                 var sunday = new moment.utc(moment()).startOf('week').add(1, 'day').hour(1).minute(30);
                 var sundayEnd = new moment.utc(sunday).add(2, 'hour');
-                var thursday = new moment.utc(moment()).startOf('week').add(5, 'day').hour(2);
+                var thursday = new moment.utc(moment()).startOf('week').add(5, 'day').hour(1).minute(30);
                 var thursdayEnd = new moment.utc(thursday).add(2, 'hour');
                 
 
